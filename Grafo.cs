@@ -11,22 +11,44 @@ namespace Grafo
         }
         public static Vertice CrearGrafo()
         {
-            Vertice vertice1 = new Vertice(1);
-            Vertice vertice2 = new Vertice(2);
-            Vertice vertice3 = new Vertice(3);
-            Vertice vertice4 = new Vertice(4);
-            Vertice vertice5 = new Vertice(5);
-            Vertice vertice6 = new Vertice(6);
+            Vertice liberia = new Vertice("Liberia");
+            Vertice canias = new Vertice("Cañas");
+            Vertice alajuela = new Vertice("Alajuela");
+            Vertice orotina = new Vertice("Orotina");
+            Vertice puntarenas = new Vertice("Puntarenas");
+            Vertice heredia = new Vertice("Heredia");
+            Vertice sanJose = new Vertice("San José");
+            Vertice cartago = new Vertice("Cartago");
+            Vertice guapiles = new Vertice("Guapiles");
+            Vertice turrialba = new Vertice("Turrialba");
+            Vertice paraiso = new Vertice("Paraíso");
+            Vertice siquirres = new Vertice("Siquirres");
+            Vertice limon = new Vertice("Limón");
 
-            vertice6.Aristas.Add(new Arista(vertice6, vertice4, 1));
-            vertice4.Aristas.Add(new Arista(vertice4, vertice5, 2));
-            vertice4.Aristas.Add(new Arista(vertice4, vertice3, 4));
-            vertice3.Aristas.Add(new Arista(vertice3, vertice2, 5));
-            vertice5.Aristas.Add(new Arista(vertice5, vertice2, 4));
-            vertice5.Aristas.Add(new Arista(vertice5, vertice1, 3));
-            vertice2.Aristas.Add(new Arista(vertice2, vertice1, 2));
 
-            return vertice6;
+            AgregarAristaNoDirigida(liberia, canias, 45);
+            AgregarAristaNoDirigida(alajuela, orotina, 49);
+            AgregarAristaNoDirigida(alajuela, puntarenas, 105);
+            AgregarAristaNoDirigida(alajuela, heredia, 15);
+            AgregarAristaNoDirigida(alajuela, sanJose, 20);
+            AgregarAristaNoDirigida(sanJose, heredia, 35);
+            AgregarAristaNoDirigida(sanJose, guapiles, 126);
+            AgregarAristaNoDirigida(guapiles, siquirres, 40);
+            AgregarAristaNoDirigida(siquirres, limon, 90);
+            AgregarAristaNoDirigida(sanJose, cartago, 40);
+            AgregarAristaNoDirigida(cartago, paraiso, 20);
+            AgregarAristaNoDirigida(paraiso, turrialba, 60);
+            AgregarAristaNoDirigida(limon, turrialba, 130);
+
+
+
+            return alajuela;
+            
+        }
+        public static void AgregarAristaNoDirigida(Vertice origen, Vertice destino, int peso)
+        {
+            origen.Aristas.Add(new Arista(origen, destino, peso));
+            destino.Aristas.Add(new Arista(destino, origen, peso));
         }
         public static void ImprimirGrafo(Vertice? vertice, HashSet<Vertice>? visitados = null)
         {
