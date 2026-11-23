@@ -80,22 +80,22 @@ namespace Grafo
             bool[] procesados = new bool[cantidadVertices];
             Vertice[] anteriores = new Vertice[cantidadVertices];
 
-            for (int i = 0; i < cantidadVertices; i++)
+            for (int i = 0; i < cantidadVertices; i++) //seteamos todo al maximo
             {
                 distancias[i] = int.MaxValue;
                 procesados[i] = false;
                 anteriores[i] = null!;
             }
 
-            distancias[origen.Indice] = 0;
+            distancias[origen.Indice] = 0;//primera distancia es 0
 
             for (int count = 0; count < cantidadVertices; count++)
             {
                 Vertice? actual = null;
                 int menorDistancia = int.MaxValue;
 
-                // Buscar el vértice no procesado con menor distancia acumulada
-                for (int i = 0; i < cantidadVertices; i++)
+                
+                for (int i = 0; i < cantidadVertices; i++) //buscamos verticce no procesado, False
                 {
                     Vertice candidato = grafo.Vertices[i];
                     if (!procesados[candidato.Indice] && distancias[candidato.Indice] <= menorDistancia)
@@ -106,13 +106,13 @@ namespace Grafo
                 }
 
                 if (actual == null || distancias[actual.Indice] == int.MaxValue)
-                    break;
+                    break; //si ese no sirve buscamos otro
 
                 procesados[actual.Indice] = true;
 
                
-                // Relajar las aristas salientes del vértice actual
-                for (int j = 0; j < actual.Aristas.Count; j++)
+                
+                for (int j = 0; j < actual.Aristas.Count; j++) //actualizar las distancias del actual a vecinos
                 {
                     Arista arista = actual.Aristas[j];
                     Vertice vecino = arista.Vertice2;
@@ -128,7 +128,7 @@ namespace Grafo
                     }
                 }
             }
-            Console.WriteLine($"\n--- Distancias mínimas desde {origen.Nombre} (Dijkstra) ---");
+            Console.WriteLine($"\n--- Distancias mínimas desde {origen.Nombre} (Dijkstra) ---"); // esto es solo para probar
             for (int i = 0; i < cantidadVertices; i++)
             {
                 Vertice v = grafo.Vertices[i];
