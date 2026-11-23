@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Usuario\\Desktop\\ConviTEC\\Backend\\Backend.csproj": {}
+    "C:\\Users\\Usuario\\Desktop\\ConviTec\\Backend\\Backend.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Usuario\\Desktop\\ConviTEC\\Backend\\Backend.csproj": {
+    "C:\\Users\\Usuario\\Desktop\\ConviTec\\Backend\\Backend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Usuario\\Desktop\\ConviTEC\\Backend\\Backend.csproj",
+        "projectUniqueName": "C:\\Users\\Usuario\\Desktop\\ConviTec\\Backend\\Backend.csproj",
         "projectName": "Backend",
-        "projectPath": "C:\\Users\\Usuario\\Desktop\\ConviTEC\\Backend\\Backend.csproj",
+        "projectPath": "C:\\Users\\Usuario\\Desktop\\ConviTec\\Backend\\Backend.csproj",
         "packagesPath": "C:\\Users\\Usuario\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Usuario\\Desktop\\ConviTEC\\Backend\\obj\\",
+        "outputPath": "C:\\Users\\Usuario\\Desktop\\ConviTec\\Backend\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Usuario\\AppData\\Roaming\\NuGet\\NuGet.Config",
