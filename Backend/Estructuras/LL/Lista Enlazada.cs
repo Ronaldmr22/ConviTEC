@@ -1,7 +1,7 @@
 using System.Drawing;
 using Backend.Estructuras.Arboles;
 
-class ListaEnlazada
+public class ListaEnlazada
 {
     private Nodo_LL? Head;
     private Nodo_LL? Tail;
@@ -92,5 +92,13 @@ class ListaEnlazada
             }
         }
         return false;
+    }
+
+    public void Recorrer(Action<object> accion)
+    {
+        for (Nodo_LL i = Head; i != null; i = i.GetNext())
+        {
+            accion(i.GetData());
+        }
     }
 }

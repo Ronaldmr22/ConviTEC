@@ -1,6 +1,6 @@
 using Microsoft.VisualBasic;
 
-class Nodo_LL
+public class Nodo_LL
 {
     private object? Data;
     private Nodo_LL? Next;
