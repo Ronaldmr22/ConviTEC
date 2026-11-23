@@ -38,4 +38,23 @@ namespace Grafo
             this.Peso = peso;
         }
     }
+    public class GrafoJsonDto
+    {
+        public List<VerticeJsonDto> Vertices { get; set; } = new();
+        public List<AristaJsonDto> Aristas { get; set; } = new();
+    }
+
+    public class VerticeJsonDto
+    {
+        public string Nombre { get; set; } = string.Empty;
+        public int Indice { get; set; }
+    }
+
+    public class AristaJsonDto
+    {
+        public int OrigenIndice { get; set; }
+        public int DestinoIndice { get; set; }
+        public int Peso { get; set; }
+        public bool NoDirigida { get; set; } = true;
+    }
 }

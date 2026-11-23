@@ -1,5 +1,6 @@
 using System.Diagnostics.Contracts;
 using System.Runtime.InteropServices;
+using System.Text.Json;
 
 namespace Grafo
 {
@@ -7,42 +8,66 @@ namespace Grafo
     {
         static void Main(string[] args)
         {
-            Grafo convitec = new Grafo();
+            {
+                string rutaJson = args.Length > 0 ? args[0] : "vertices.json";
+                Grafo convitec = CargarGrafoDesdeJson(rutaJson);
+                Django(convitec, convitec.Vertices[7]);
+              
+            }
+        }
 
-            convitec.Vertices.Add(new Vertice("Liberia", 0));
-            convitec.Vertices.Add(new Vertice("Cañas", 1));
-            convitec.Vertices.Add(new Vertice("Alajuela", 2));
-            convitec.Vertices.Add(new Vertice("Orotina", 3));
-            convitec.Vertices.Add(new Vertice("Puntarenas", 4));
-            convitec.Vertices.Add(new Vertice("Heredia", 5));
-            convitec.Vertices.Add(new Vertice("San José", 6));
-            convitec.Vertices.Add(new Vertice("Cartago", 7));
-            convitec.Vertices.Add(new Vertice("Guapiles", 8));
-            convitec.Vertices.Add(new Vertice("Turrialba", 9));
-            convitec.Vertices.Add(new Vertice("Paraíso", 10));
-            convitec.Vertices.Add(new Vertice("Siquirres", 11));
-            convitec.Vertices.Add(new Vertice("Limón", 12));
         
+        public static Grafo CargarGrafoDesdeJson(string rutaArchivo)
+        {
+            if (!File.Exists(rutaArchivo))
+                throw new FileNotFoundException($"No se encontró el archivo JSON: {rutaArchivo}");
 
+            string json = File.ReadAllText(rutaArchivo);
 
-            AgregarAristaNoDirigida(convitec.Vertices[0], convitec.Vertices[1], 45);
-            AgregarAristaNoDirigida(convitec.Vertices[3], convitec.Vertices[4], 40);
-            AgregarAristaNoDirigida(convitec.Vertices[2], convitec.Vertices[3], 49);
-            AgregarAristaNoDirigida(convitec.Vertices[2], convitec.Vertices[4], 105);
-            AgregarAristaNoDirigida(convitec.Vertices[2], convitec.Vertices[5], 15);
-            AgregarAristaNoDirigida(convitec.Vertices[2], convitec.Vertices[6], 20);
-            AgregarAristaNoDirigida(convitec.Vertices[6], convitec.Vertices[5], 35);
-            AgregarAristaNoDirigida(convitec.Vertices[6], convitec.Vertices[7], 40);
-            AgregarAristaNoDirigida(convitec.Vertices[6], convitec.Vertices[8], 70);
-            AgregarAristaNoDirigida(convitec.Vertices[8], convitec.Vertices[9], 90);
-            AgregarAristaNoDirigida(convitec.Vertices[8], convitec.Vertices[11], 35);
-            AgregarAristaNoDirigida(convitec.Vertices[7], convitec.Vertices[10], 40);
-            AgregarAristaNoDirigida(convitec.Vertices[10], convitec.Vertices[9], 20);
-            AgregarAristaNoDirigida(convitec.Vertices[11], convitec.Vertices[12], 60);
-            AgregarAristaNoDirigida(convitec.Vertices[9], convitec.Vertices[12], 130);
+            var opciones = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            };
 
-           Django(convitec, convitec.Vertices[0]);
-          
+            GrafoJsonDto? datos = JsonSerializer.Deserialize<GrafoJsonDto>(json, opciones);
+            if (datos == null)
+                throw new InvalidDataException("El contenido del JSON no es válido.");
+
+            Grafo grafo = new Grafo();
+
+            // 1. Crear vértices y mapearlos por Indice
+            var verticesPorIndice = new Dictionary<int, Vertice>();
+            foreach (var vDto in datos.Vertices)
+            {
+                if (verticesPorIndice.ContainsKey(vDto.Indice))
+                    throw new InvalidDataException($"Índice de vértice duplicado: {vDto.Indice}");
+
+                var vertice = new Vertice(vDto.Nombre, vDto.Indice);
+                grafo.Vertices.Add(vertice);
+                verticesPorIndice[vDto.Indice] = vertice;
+            }
+
+            // 2. Crear aristas conectando los vértices correspondientes
+            foreach (var aDto in datos.Aristas)
+            {
+                if (!verticesPorIndice.TryGetValue(aDto.OrigenIndice, out Vertice? origen) ||
+                    !verticesPorIndice.TryGetValue(aDto.DestinoIndice, out Vertice? destino))
+                {
+                    throw new InvalidDataException(
+                        $"Arista con índice inexistente ({aDto.OrigenIndice} -> {aDto.DestinoIndice}).");
+                }
+
+                if (aDto.NoDirigida)
+                {
+                    AgregarAristaNoDirigida(origen, destino, aDto.Peso);
+                }
+                else
+                {
+                    origen.Aristas.Add(new Arista(origen, destino, aDto.Peso));
+                }
+            }
+
+            return grafo;
         }
 
         public static void Django(Grafo grafo, Vertice origen)
@@ -103,8 +128,6 @@ namespace Grafo
                     }
                 }
             }
-
-            
             Console.WriteLine($"\n--- Distancias mínimas desde {origen.Nombre} (Dijkstra) ---");
             for (int i = 0; i < cantidadVertices; i++)
             {
@@ -126,8 +149,5 @@ namespace Grafo
             origen.Aristas.Add(new Arista(origen, destino, peso));
             destino.Aristas.Add(new Arista(destino, origen, peso));
         }
-        
-       
-        
     }
 }
