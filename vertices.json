@@ -1,0 +1,34 @@
+{
+  "vertices": [
+    { "nombre": "Liberia", "indice": 0 },
+    { "nombre": "Cañas", "indice": 1 },
+    { "nombre": "Alajuela", "indice": 2 },
+    { "nombre": "Orotina", "indice": 3 },
+    { "nombre": "Puntarenas", "indice": 4 },
+    { "nombre": "Heredia", "indice": 5 },
+    { "nombre": "San José", "indice": 6 },
+    { "nombre": "Cartago", "indice": 7 },
+    { "nombre": "Guapiles", "indice": 8 },
+    { "nombre": "Turrialba", "indice": 9 },
+    { "nombre": "Paraíso", "indice": 10 },
+    { "nombre": "Siquirres", "indice": 11 },
+    { "nombre": "Limón", "indice": 12 }
+  ],
+  "aristas": [
+    { "origenIndice": 0, "destinoIndice": 1, "peso": 45, "noDirigida": true },
+    { "origenIndice": 3, "destinoIndice": 4, "peso": 40, "noDirigida": true },
+    { "origenIndice": 2, "destinoIndice": 3, "peso": 49, "noDirigida": true },
+    { "origenIndice": 2, "destinoIndice": 4, "peso": 105, "noDirigida": true },
+    { "origenIndice": 2, "destinoIndice": 5, "peso": 15, "noDirigida": true },
+    { "origenIndice": 2, "destinoIndice": 6, "peso": 20, "noDirigida": true },
+    { "origenIndice": 6, "destinoIndice": 5, "peso": 35, "noDirigida": true },
+    { "origenIndice": 6, "destinoIndice": 7, "peso": 40, "noDirigida": true },
+    { "origenIndice": 6, "destinoIndice": 8, "peso": 70, "noDirigida": true },
+    { "origenIndice": 8, "destinoIndice": 9, "peso": 90, "noDirigida": true },
+    { "origenIndice": 8, "destinoIndice": 11, "peso": 35, "noDirigida": true },
+    { "origenIndice": 7, "destinoIndice": 10, "peso": 40, "noDirigida": true },
+    { "origenIndice": 10, "destinoIndice": 9, "peso": 20, "noDirigida": true },
+    { "origenIndice": 11, "destinoIndice": 12, "peso": 60, "noDirigida": true },
+    { "origenIndice": 9, "destinoIndice": 12, "peso": 130, "noDirigida": true }
+  ]
+}
