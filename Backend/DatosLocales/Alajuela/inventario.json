@@ -1,0 +1,74 @@
+[
+  {
+    "Codigo": "MON-001",
+    "Nombre": "Monitor LED 24 pulgadas",
+    "Descripcion": "Pantalla Full HD 1920x1080, HDMI, 75 Hz",
+    "Categoria": "Monitores",
+    "Precio": 65000,
+    "Cantidad": 8,
+    "CantidadReservada": 0
+  },
+  {
+    "Codigo": "MOU-001",
+    "Nombre": "Mouse inalambrico",
+    "Descripcion": "Conexion 2.4 GHz, sensor optico de 1600 DPI",
+    "Categoria": "Mouse",
+    "Precio": 8500,
+    "Cantidad": 30,
+    "CantidadReservada": 0
+  },
+  {
+    "Codigo": "TEC-001",
+    "Nombre": "Teclado mecanico",
+    "Descripcion": "Interruptores mecanicos, RGB, conexion USB",
+    "Categoria": "Teclados",
+    "Precio": 28000,
+    "Cantidad": 18,
+    "CantidadReservada": 0
+  },
+  {
+    "Codigo": "CAM-001",
+    "Nombre": "Camara web Full HD",
+    "Descripcion": "Resolucion 1080p, 30 FPS, microfono integrado",
+    "Categoria": "Camaras web",
+    "Precio": 22000,
+    "Cantidad": 10,
+    "CantidadReservada": 0
+  },
+  {
+    "Codigo": "MIC-001",
+    "Nombre": "Microfono USB",
+    "Descripcion": "Patron cardioide, soporte de escritorio",
+    "Categoria": "Microfonos",
+    "Precio": 18500,
+    "Cantidad": 4,
+    "CantidadReservada": 0
+  },
+  {
+    "Codigo": "PAD-001",
+    "Nombre": "Mousepad gamer",
+    "Descripcion": "Superficie de tela, base antideslizante, 35x30 cm",
+    "Categoria": "Mousepads",
+    "Precio": 5000,
+    "Cantidad": 14,
+    "CantidadReservada": 0
+  },
+  {
+    "Codigo": "LAP-001",
+    "Nombre": "Laptop 15.6 pulgadas",
+    "Descripcion": "16 GB RAM, SSD 512 GB, pantalla Full HD",
+    "Categoria": "Laptops",
+    "Precio": 350000,
+    "Cantidad": 12,
+    "CantidadReservada": 0
+  },
+  {
+    "Codigo": "AUD-001",
+    "Nombre": "Audifonos con microfono",
+    "Descripcion": "Microfono ajustable, conexion de 3.5 mm",
+    "Categoria": "Audifonos",
+    "Precio": 19500,
+    "Cantidad": 16,
+    "CantidadReservada": 0
+  }
+]
