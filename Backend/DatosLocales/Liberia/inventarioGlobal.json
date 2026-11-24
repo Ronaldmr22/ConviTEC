@@ -1,0 +1,58 @@
+[
+  {
+    "CodigoProducto": "AUD-001",
+    "CodigoSede": "LIB",
+    "Cantidad": 10,
+    "CantidadReservada": 0,
+    "Version": 1
+  },
+  {
+    "CodigoProducto": "CAM-001",
+    "CodigoSede": "LIB",
+    "Cantidad": 6,
+    "CantidadReservada": 0,
+    "Version": 1
+  },
+  {
+    "CodigoProducto": "LAP-001",
+    "CodigoSede": "LIB",
+    "Cantidad": 5,
+    "CantidadReservada": 0,
+    "Version": 1
+  },
+  {
+    "CodigoProducto": "MIC-001",
+    "CodigoSede": "LIB",
+    "Cantidad": 12,
+    "CantidadReservada": 0,
+    "Version": 1
+  },
+  {
+    "CodigoProducto": "MON-001",
+    "CodigoSede": "LIB",
+    "Cantidad": 29,
+    "CantidadReservada": 0,
+    "Version": 5
+  },
+  {
+    "CodigoProducto": "MOU-001",
+    "CodigoSede": "LIB",
+    "Cantidad": 15,
+    "CantidadReservada": 0,
+    "Version": 1
+  },
+  {
+    "CodigoProducto": "PAD-001",
+    "CodigoSede": "LIB",
+    "Cantidad": 25,
+    "CantidadReservada": 0,
+    "Version": 1
+  },
+  {
+    "CodigoProducto": "TEC-001",
+    "CodigoSede": "LIB",
+    "Cantidad": 8,
+    "CantidadReservada": 0,
+    "Version": 1
+  }
+]

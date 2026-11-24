@@ -1,57 +1,72 @@
+
 using Backend.Models;
 using Backend.Services;
 using Backend.Persistencia;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Registrar controladores
 builder.Services.AddControllers();
 
-// Leer los datos de la sede
+// Leer configuración de la sede
 string codigo = builder.Configuration["Sede:Codigo"]
-    ?? throw new InvalidOperationException("Falta el código de sede.");
+    ?? throw new InvalidOperationException("Falta el código.");
 
 string nombre = builder.Configuration["Sede:Nombre"]
-    ?? throw new InvalidOperationException("Falta el nombre de sede.");
+    ?? throw new InvalidOperationException("Falta el nombre.");
 
 string rutaDatos = builder.Configuration["Sede:RutaDatos"]
-    ?? throw new InvalidOperationException("Falta la ruta de datos.");
+    ?? throw new InvalidOperationException("Falta la ruta.");
 
-// Crear configuración de la sede
 ConfiguracionSede sede = new ConfiguracionSede(
-    codigo,
-    nombre,
-    rutaDatos
+    codigo, nombre, rutaDatos
 );
 
-// Registrar la configuración de esta instancia
 builder.Services.AddSingleton(sede);
 
-// Crear la ruta del archivo de inventario
+// Ruta del inventario de esta sede
 string rutaInventario = Path.Combine(
     builder.Environment.ContentRootPath,
     sede.GetRutaDatos(),
     "inventario.json"
 );
 
-// Crear la persistencia
-InventarioJson persistencia =
-    new InventarioJson(rutaInventario);
+// Crear persistencia y cargar inventario
+InventarioJson persistencia =new InventarioJson(rutaInventario);
 
-// Recuperar el inventario local
 Inventario inventario = persistencia.Cargar();
 
-// Registrar los objetos para usarlos desde controladores
+// Registrar servicios
 builder.Services.AddSingleton(persistencia);
 builder.Services.AddSingleton(inventario);
 
+// ESTA PARTE ES FUNDAMENTAL
+InventarioService inventarioService = new InventarioService(inventario, persistencia);
+builder.Services.AddSingleton(inventarioService);
+
+string rutaInventarioGlobal = Path.Combine(
+    builder.Environment.ContentRootPath,
+    sede.GetRutaDatos(),
+    "inventarioGlobal.json"
+);
+
+PersistenciaInventarioGlobalJson persistenciaGlobal = new PersistenciaInventarioGlobalJson(rutaInventarioGlobal);
+InventarioGlobal inventarioGlobal = persistenciaGlobal.Cargar();
+
+builder.Services.AddSingleton(persistenciaGlobal);
+builder.Services.AddSingleton(inventarioGlobal);
+
+InventarioGlobalService inventarioGlobalService = new InventarioGlobalService(inventarioGlobal, persistenciaGlobal );
+builder.Services.AddSingleton(inventarioGlobalService);
+
+inventarioGlobalService.SincronizarInventarioLocal(inventarioService, sede.GetCodigo());
+inventarioService.ConfigurarSincronizacionGlobal(inventarioGlobalService, sede.GetCodigo( ));
+
+
 var app = builder.Build();
 
-// Habilitar frontend estático
 app.UseDefaultFiles();
 app.UseStaticFiles();
 
-// Habilitar rutas de la API
 app.MapControllers();
 
 app.Run();
