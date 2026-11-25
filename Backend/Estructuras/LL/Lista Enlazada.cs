@@ -3,16 +3,16 @@ using Backend.Estructuras.Arboles;
 
 public class ListaEnlazada
 {
-    private Nodo_LL? Head;
-    private Nodo_LL? Tail;
+    private Nodo? Head;
+    private Nodo? Tail;
     private int Size = 0;
 
-    public Nodo_LL GetHead()
+    public Nodo GetHead()
     {
         return Head;
     }
 
-    public Nodo_LL GetTail()
+    public Nodo GetTail()
     {
         return Tail;
     }
@@ -22,19 +22,19 @@ public class ListaEnlazada
         return Size;
     }
 
-    public void SetHead(Nodo_LL nodo)
+    public void SetHead(Nodo nodo)
     {
         Head = nodo;
     }
 
-    public void SetTail(Nodo_LL nodo)
+    public void SetTail(Nodo nodo)
     {
         Tail = nodo;
     }
 
     public object EncontrarDato(Func<object, bool> criterio)
     {
-        for (Nodo_LL i = Head; i != null; i = i.GetNext())
+        for (Nodo i = Head; i != null; i = i.GetNext())
         {
             if (criterio(i.GetData()))
             {
@@ -46,7 +46,7 @@ public class ListaEnlazada
 
     public void AgregarDato(object data)
     {
-        Nodo_LL nuevo = new Nodo_LL(data);
+        Nodo nuevo = new Nodo(data);
         if (Size == 0)
         {
             Head = nuevo;
@@ -74,7 +74,7 @@ public class ListaEnlazada
             Size--;
             return true;
         }
-        for (Nodo_LL i = Head; i != Tail; i = i.GetNext())
+        for (Nodo i = Head; i != Tail; i = i.GetNext())
         {
             if (criterio(i.GetNext().GetData()))
             {
@@ -96,7 +96,7 @@ public class ListaEnlazada
 
     public void Recorrer(Action<object> accion)
     {
-        for (Nodo_LL i = Head; i != null; i = i.GetNext())
+        for (Nodo i = Head; i != null; i = i.GetNext())
         {
             accion(i.GetData());
         }

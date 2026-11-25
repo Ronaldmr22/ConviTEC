@@ -3,39 +3,52 @@ public class Pedido
 {
     private string Id;
     private DateTime FechaCreación;
-    private EstadoPedido estado;
+    private EstadoPedido Estado;
     private string SedeOrigen;
     private string Destino;
-    private ListaEnlazada lineas;
+    private ListaEnlazada Lineas;
     private string MotivoRechazo;
 
     public Pedido(string sedeOrigen, string destino)
     {
-        this.Id = SedeOrigen + "-" + Guid.NewGuid().ToString("N").Substring(0, 8);
+        this.Id = sedeOrigen + "-" + Guid.NewGuid().ToString("N").Substring(0, 8);
         this.FechaCreación = DateTime.Now;
-        this.estado = EstadoPedido.Registrado;
+        this.Estado = EstadoPedido.Registrado;
         this.SedeOrigen = sedeOrigen;
         this.Destino = destino;
-        this.lineas = new ListaEnlazada();
+        this.Lineas = new ListaEnlazada();
         this.MotivoRechazo = "";
     }
 
+    public string GetId() {return Id;}
+    public DateTime GetFechaCreación() {return FechaCreación;}
+    public EstadoPedido GetEstado() {return Estado;}
+    public string GetSedeOrigen() {return SedeOrigen;}
+    public string GetDestino() {return Destino;}
+    public ListaEnlazada GetLineas() {return Lineas;}
+    public string GetMotivoRechazo() {return MotivoRechazo;}
+
+    public void SetID(string id) {Id = id;}
+    public void SetEstado(EstadoPedido estado) {Estado = estado;}
+    public void SetMotivoRechazo(string motivoRechazo) {MotivoRechazo = motivoRechazo;}
+
+
     public void AgregarLinea(LineaPedido linea)
     {
-        lineas.AgregarDato(linea);
+        Lineas.AgregarDato(linea);
     }
 
     public decimal CalcularTotal()
     {
         decimal total = 0;
-        lineas.Recorrer(dato => total += ((LineaPedido)dato).Subtotal());
+        Lineas.Recorrer(dato => total += ((LineaPedido)dato).Subtotal());
         return total;
     }
 
     public ListaEnlazada ObtenerSedesParticipantes()
     {
         ListaEnlazada sedes = new ListaEnlazada();
-        lineas.Recorrer(dato =>
+        Lineas.Recorrer(dato =>
         {
             string sede = ((LineaPedido)dato).GetSedeProveedora();
             if (sedes.EncontrarDato(s => (string)s == sede) == null)
@@ -48,11 +61,11 @@ public class Pedido
 
     public void CambiarEstado(EstadoPedido Nuevo)
     {
-        if (estado == EstadoPedido.Entregado || estado == EstadoPedido.Cancelado || estado == EstadoPedido.Rechazado)
+        if (Estado == EstadoPedido.Entregado || Estado == EstadoPedido.Cancelado || Estado == EstadoPedido.Rechazado)
         {
-            throw new InvalidOperationException($"El pedido ya está {estado}");
+            throw new InvalidOperationException($"El pedido ya está {Estado}");
         }
-        estado = Nuevo;
+        Estado = Nuevo;
     }
 }
 }

@@ -166,7 +166,7 @@ classDiagram
         -IPlanificadorRutas planificador
         -CoordinadorReservas coordinador
         -IRepositorioPedidos repositorio
-        +RegistrarPedido(Pedido) ResultadoPedido
+        +RegistrarPedido(Pedido) Task~ResultadoPedido~
         +ObtenerHistorial() ListaEnlazada~Pedido~
         +ObtenerPendientes() Cola~Pedido~
         -AsignarProveedores(Pedido)
@@ -219,6 +219,18 @@ classDiagram
         -DateTime ultimaActualizacion
     }
 
+    class ResultadoPedido {
+        -bool aceptado
+        -string idPedido
+        -string mensaje
+        +Aceptado(string idPedido, string mensaje)$ ResultadoPedido
+        +Rechazado(string idPedido, string mensaje)$ ResultadoPedido
+        +GetAceptado() bool
+        +GetIdPedido() string
+        +GetMensaje() string
+    }
+
+    ServicioPedidos ..> ResultadoPedido : crea
     ServicioPedidos --> CoordinadorReservas
     ServicioPedidos --> IPlanificadorRutas
     ServicioPedidos --> IRepositorioPedidos

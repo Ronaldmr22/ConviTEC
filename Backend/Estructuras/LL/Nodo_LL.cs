@@ -1,11 +1,11 @@
 using Microsoft.VisualBasic;
 
-public class Nodo_LL
+public class Nodo
 {
     private object? Data;
-    private Nodo_LL? Next;
+    private Nodo? Next;
 
-    public Nodo_LL(object data)
+    public Nodo(object data)
     {
         Data = data;
     }
@@ -15,7 +15,7 @@ public class Nodo_LL
         return Data;
     }
 
-    public Nodo_LL GetNext()
+    public Nodo GetNext()
     {
         return Next;
     }
@@ -25,7 +25,7 @@ public class Nodo_LL
         Data = objeto;
     }
 
-    public void SetNext(Nodo_LL? nodo)
+    public void SetNext(Nodo? nodo)
     {
         Next = nodo;
     }

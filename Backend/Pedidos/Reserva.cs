@@ -20,6 +20,13 @@ public class Reserva
         this.FechaExpiracion = DateTime.Now.AddMinutes(2);
     }
 
+    public string GetId() {return Id;}
+    public string GetIdPedido() {return IdPedido;}
+    public string GetCodigoProducto() {return CodigoProducto;}
+    public int GetCantidad() {return Cantidad;}
+    public string GetSedeSolicitante() {return SedeSolicitante;}
+
+
     public bool EstaVencida()
         {
             return estado == EstadoReserva.Activa && DateTime.Now > FechaExpiracion;
