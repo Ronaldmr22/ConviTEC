@@ -16,25 +16,30 @@
             <input id="destino" name="destino" required>
 
             <fieldset>
-                <legend>Productos del pedido</legend>
+                <p id="estado-catalogo" role="status">Cargando productos…</p>
                 <div id="lineas"></div>
-                <button id="agregar-producto" type="button">Agregar producto</button>
+                <button id="agregar-producto" type="button" disabled>Agregar producto</button>
             </fieldset>
         </form>
 
         <template id="plantilla-producto">
             <div class="linea-producto">
                 <label>
-                    Código de producto
-                    <input name="codigoProducto" required>
+                    Producto
+                    <select name="codigoProducto" required>
+                        <option value="">Selecciona un producto</option>
+                    </select>
                 </label>
+
                 <label>
                     Cantidad
                     <input name="cantidad" type="number" min="1" step="1" value="1" required>
                 </label>
+
                 <button type="button" class="quitar-producto">Quitar producto</button>
             </div>
         </template>
+
     </main>
 </body>
 </html>
