@@ -4,31 +4,45 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Inventario local - ConviTEC</title>
-    <script src="inventario.js" defer></script>
+    <link rel="stylesheet" href="/estilos.css">
+    <script src="/inventario.js" defer></script>
+    <script src="/sede.js" defer></script>
 </head>
 <body>
-    <main>
-        <h1>Inventario local</h1>
-        <nav>
-            <a href="/catalogo-global.html">Ver catálogo global</a>
+    <header class="barra">
+        <div class="identidad-sede">
+            <strong>ConviTEC</strong>
+            <span id="sede-actual" class="etiqueta-sede" role="status">Consultando sede…</span>
+        </div>
+        <nav aria-label="Navegación principal">
+            <a href="/" aria-current="page">Inventario local</a>
+            <a href="/catalogo-global.html">Catálogo global</a>
             <a href="/crear-pedido.html">Crear pedido</a>
+            <a href="/historial-ventas.html">Historial de ventas</a>
+            <a href="/estadisticas-ventas.html">Estadísticas</a>
         </nav>
+    </header>
+
+    <main class="panel">
+        <h1>Inventario local</h1>
         <p id="estado" role="status">Cargando inventario…</p>
 
-        <table id="tabla-inventario" hidden>
-            <caption>Productos de la sede</caption>
-            <thead>
-                <tr>
-                    <th scope="col">Código</th>
-                    <th scope="col">Producto</th>
-                    <th scope="col">Categoría</th>
-                    <th scope="col">Precio</th>
-                    <th scope="col">Existencias</th>
-                    <th scope="col">Disponibles</th>
-                </tr>
-            </thead>
-            <tbody id="productos"></tbody>
-        </table>
+        <div class="tabla-contenedor">
+            <table id="tabla-inventario" hidden>
+                <caption>Productos de la sede</caption>
+                <thead>
+                    <tr>
+                        <th scope="col">Código</th>
+                        <th scope="col">Producto</th>
+                        <th scope="col">Categoría</th>
+                        <th scope="col">Precio</th>
+                        <th scope="col">Existencias</th>
+                        <th scope="col">Disponibles</th>
+                    </tr>
+                </thead>
+                <tbody id="productos"></tbody>
+            </table>
+        </div>
     </main>
 </body>
 </html>

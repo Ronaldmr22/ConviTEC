@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ConviTEC | Estadísticas de ventas</title>
+    <link rel="stylesheet" href="/estilos.css">
+    <script src="/sede.js" defer></script>
+    <script src="/estadisticas-ventas.js" defer></script>
+</head>
+<body>
+    <header class="barra">
+        <div class="identidad-sede">
+            <strong>ConviTEC</strong>
+            <span id="sede-actual" class="etiqueta-sede" role="status">Consultando sede…</span>
+        </div>
+        <nav aria-label="Navegación principal">
+            <a href="/">Inventario local</a>
+            <a href="/catalogo-global.html">Catálogo global</a>
+            <a href="/crear-pedido.html">Crear pedido</a>
+            <a href="/historial-ventas.html">Historial de ventas</a>
+            <a href="/estadisticas-ventas.html" aria-current="page">Estadísticas</a>
+        </nav>
+    </header>
+
+    <main class="panel">
+        <h1>Estadísticas de ventas</h1>
+        <p id="estado-estadisticas" role="status">Cargando estadísticas…</p>
+
+        <section id="resumen-ventas" hidden>
+            <dl>
+                <dt>Ingresos totales</dt>
+                <dd id="ingresos-totales"></dd>
+                <dt>Producto estrella</dt>
+                <dd id="producto-estrella"></dd>
+            </dl>
+
+            <h2>Rendimiento de los pedidos</h2>
+            <p id="sin-rendimiento" hidden>Esta sede todavía no tiene pedidos con rendimiento calculable.</p>
+
+            <div class="tabla-contenedor">
+                <table id="tabla-rendimiento" hidden>
+                    <caption>Pedidos de menor a mayor rendimiento</caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">Pedido</th>
+                            <th scope="col">Monto total</th>
+                            <th scope="col">Traslado (min)</th>
+                            <th scope="col">Rendimiento (₡/min)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="filas-rendimiento"></tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

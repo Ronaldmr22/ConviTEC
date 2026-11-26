@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ConviTEC | Historial de ventas</title>
+    <link rel="stylesheet" href="/estilos.css">
+    <script src="/historial-ventas.js" defer></script>
+    <script src="/sede.js" defer></script>
+</head>
+<body>
+    <header class="barra">
+        <div class="identidad-sede">
+            <strong>ConviTEC</strong>
+            <span id="sede-actual" class="etiqueta-sede" role="status">Consultando sede…</span>
+        </div>
+        <nav aria-label="Navegación principal">
+            <a href="/">Inventario local</a>
+            <a href="/catalogo-global.html">Catálogo global</a>
+            <a href="/crear-pedido.html">Crear pedido</a>
+            <a href="/historial-ventas.html" aria-current="page">Historial de ventas</a>
+            <a href="/estadisticas-ventas.html">Estadísticas</a>
+        </nav>
+    </header>
+
+    <main class="panel">
+        <h1>Historial de ventas</h1>
+        <p id="estado-ventas" role="status">Cargando historial…</p>
+
+        <div class="tabla-contenedor">
+            <table id="tabla-ventas" hidden>
+                <caption>Pedidos entregados de la sede</caption>
+                <thead>
+                    <tr>
+                        <th scope="col">Pedido</th>
+                        <th scope="col">Fecha de entrega</th>
+                        <th scope="col">Producto</th>
+                        <th scope="col">Cantidad</th>
+                        <th scope="col">Precio unitario</th>
+                        <th scope="col">Total del pedido</th>
+                    </tr>
+                </thead>
+                <tbody id="filas-ventas"></tbody>
+            </table>
+        </div>
+    </main>
+</body>
+</html>

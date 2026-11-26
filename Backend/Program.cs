@@ -60,13 +60,20 @@ builder.Services.AddSingleton(inventarioGlobalService);
 
 inventarioGlobalService.SincronizarInventarioLocal(inventarioService, sede.GetCodigo());
 inventarioService.ConfigurarSincronizacionGlobal(inventarioGlobalService, sede.GetCodigo( ));
+string rutaVentas = Path.Combine(
+    builder.Environment.ContentRootPath,
+    sede.GetRutaDatos(),
+    "ventas.json");
+
+builder.Services.AddSingleton(new VentasJson(rutaVentas));
+builder.Services.AddSingleton<VentasService>();
 
 
 var app = builder.Build();
 
 app.UseDefaultFiles();
 app.UseStaticFiles();
-
 app.MapControllers();
+app.MapGet("/api/sede", () => Results.Ok(new { codigo, nombre }));
 
 app.Run();

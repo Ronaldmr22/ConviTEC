@@ -4,12 +4,27 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>ConviTEC | Crear pedido</title>
+    <link rel="stylesheet" href="/estilos.css">
     <script src="/crear-pedido.js" defer></script>
+    <script src="/sede.js" defer></script>
 </head>
 <body>
-    <main>
+    <header class="barra">
+        <div class="identidad-sede">
+            <strong>ConviTEC</strong>
+            <span id="sede-actual" class="etiqueta-sede" role="status">Consultando sede…</span>
+        </div>
+        <nav aria-label="Navegación principal">
+            <a href="/">Inventario local</a>
+            <a href="/catalogo-global.html">Catálogo global</a>
+            <a href="/crear-pedido.html" aria-current="page">Crear pedido</a>
+            <a href="/historial-ventas.html">Historial de ventas</a>
+            <a href="/estadisticas-ventas.html">Estadísticas</a>
+        </nav>
+    </header>
+
+    <main class="panel">
         <h1>Crear pedido</h1>
-        <nav><a href="/">Volver al inventario local</a></nav>
 
         <form id="formulario-pedido">
             <label for="destino">Destino de entrega</label>
@@ -31,6 +46,7 @@
             </select>
 
             <fieldset>
+                <legend>Productos del pedido</legend>
                 <p id="estado-catalogo" role="status">Cargando productos…</p>
                 <div id="lineas"></div>
                 <button id="agregar-producto" type="button" disabled>Agregar producto</button>
@@ -54,7 +70,6 @@
                 <button type="button" class="quitar-producto">Quitar producto</button>
             </div>
         </template>
-
     </main>
 </body>
 </html>

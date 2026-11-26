@@ -4,33 +4,44 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>ConviTEC | Catálogo global</title>
+    <link rel="stylesheet" href="/estilos.css">
     <script src="/catalogo-global.js" defer></script>
+    <script src="/sede.js" defer></script>
 </head>
 <body>
-    <main>
-        <h1>Catálogo global</h1>
-
-        <nav>
-            <a href="/index.html">Volver al inventario local</a>
+    <header class="barra">
+        <div class="identidad-sede">
+            <strong>ConviTEC</strong>
+            <span id="sede-actual" class="etiqueta-sede" role="status">Consultando sede…</span>
+        </div>
+        <nav aria-label="Navegación principal">
+            <a href="/">Inventario local</a>
+            <a href="/catalogo-global.html" aria-current="page">Catálogo global</a>
+            <a href="/crear-pedido.html">Crear pedido</a>
+            <a href="/historial-ventas.html">Historial de ventas</a>
+            <a href="/estadisticas-ventas.html">Estadísticas</a>
         </nav>
+    </header>
 
+    <main class="panel">
+        <h1>Catálogo global</h1>
         <p id="estado" role="status">Cargando catálogo global…</p>
 
-        <table id="tabla-global" hidden>
-            <caption>Existencias por producto y sede</caption>
-            <thead>
-                <tr>
-                    <th scope="col">Código de producto</th>
-                    <th scope="col">Sede</th>
-                    <th scope="col">Existencias</th>
-                    <th scope="col">Reservadas</th>
-                    <th scope="col">Disponibles</th>
-                </tr>
-            </thead>
-            <tbody id="registros-globales"></tbody>
-        </table>
+        <div class="tabla-contenedor">
+            <table id="tabla-global" hidden>
+                <caption>Existencias por producto y sede</caption>
+                <thead>
+                    <tr>
+                        <th scope="col">Código de producto</th>
+                        <th scope="col">Sede</th>
+                        <th scope="col">Existencias</th>
+                        <th scope="col">Reservadas</th>
+                        <th scope="col">Disponibles</th>
+                    </tr>
+                </thead>
+                <tbody id="registros-globales"></tbody>
+            </table>
+        </div>
     </main>
 </body>
 </html>
-
-
