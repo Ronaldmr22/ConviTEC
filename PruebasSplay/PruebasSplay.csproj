@@ -1,8 +1,5 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
-  <ItemGroup>
-    <ProjectReference Include="..\Backend\Backend.csproj" />
-  </ItemGroup>
+﻿
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -10,5 +7,18 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\Backend\Mensajes\Mensaje.cs" />
+    <Compile Include="..\Backend\Mensajes\SolicitudReserva.cs" />
+    <Compile Include="..\Backend\Mensajes\RespuestaReserva.cs" />
+    <Compile Include="..\Backend\Mensajes\ConfirmarReserva.cs" />
+    <Compile Include="..\Backend\Mensajes\LiberarReserva.cs" />
+    <Compile Include="..\Backend\Mensajes\ActualizacionInventario.cs" />
+    <Compile Include="..\Backend\Mensajes\SnapshotInventario.cs" />
+    <Compile Include="..\Backend\Mensajes\SolicitudSnapshot.cs" />
+
+    <Compile Include="..\Backend\Models\RegistroExistenciaGlobal.cs" />
+  </ItemGroup>
 
 </Project>

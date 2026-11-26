@@ -1,9 +1,13 @@
+using System.Text.Json.Serialization;
 namespace Backend.Mensajes;
 
 public class LiberarReserva : Mensaje
 {
     private string idReserva;
+    // Propiedad para JSON
+    public string IdReserva => idReserva;
 
+    [JsonConstructor]
     public LiberarReserva(string id, string sedeOrigen, string sedeDestino, string correlationId, DateTime fecha, string idReserva)
         : base(id, "LiberarReserva", sedeOrigen, sedeDestino, correlationId, fecha)
     {

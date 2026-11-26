@@ -1,9 +1,12 @@
+using System.Text.Json.Serialization;
 namespace Backend.Mensajes;
 
 public class ConfirmarReserva : Mensaje
 {
     private string idReserva;
+    public string IdReserva => idReserva;
 
+    [JsonConstructor]
     public ConfirmarReserva(string id, string sedeOrigen, string sedeDestino, string correlationId, DateTime fecha, string idReserva)
         : base(id, "ConfirmarReserva", sedeOrigen, sedeDestino, correlationId, fecha)
     {

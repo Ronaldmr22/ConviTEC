@@ -1,4 +1,4 @@
-
+using System.Text.Json.Serialization;
 namespace Backend.Mensajes;
 
 public class SolicitudReserva : Mensaje
@@ -6,7 +6,12 @@ public class SolicitudReserva : Mensaje
     private string idPedido;
     private string codigoProducto;
     private int cantidad;
+    // Propiedades para JSON
+    public string IdPedido => idPedido;
+    public string CodigoProducto => codigoProducto;
+    public int Cantidad => cantidad;
 
+    [JsonConstructor]
     public SolicitudReserva(string id, string sedeOrigen, string sedeDestino, string correlationId, DateTime fecha, string idPedido, string codigoProducto, int cantidad)
     : base(id, "SolicitudReserva", sedeOrigen, sedeDestino, correlationId, fecha)
     {

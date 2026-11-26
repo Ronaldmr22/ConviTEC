@@ -9,6 +9,13 @@ public abstract class Mensaje
     private string sedeDestino;
     private string correlationId;
     private DateTime fecha;
+    // Propiedades para serializacion JSON
+    public string Id => id;
+    public string Tipo => tipo;
+    public string SedeOrigen => sedeOrigen;
+    public string SedeDestino => sedeDestino;
+    public string CorrelationId => correlationId;
+    public DateTime Fecha => fecha;
 
     protected Mensaje(string id, string tipo, string sedeOrigen, string sedeDestino, string correlationId, DateTime fecha)
     {

@@ -1,4 +1,4 @@
-
+using System.Text.Json.Serialization;
 namespace Backend.Mensajes;
 
 public class RespuestaReserva : Mensaje
@@ -6,7 +6,11 @@ public class RespuestaReserva : Mensaje
     private bool aceptada;
     private string idReserva;
     private string motivo;
+    public bool Aceptada => aceptada;
+    public string IdReserva => idReserva;
+    public string Motivo => motivo;
 
+    [JsonConstructor]
     public RespuestaReserva(string id, string sedeOrigen, string sedeDestino, string correlationId, DateTime fecha, bool aceptada, string idReserva, string motivo)
         : base(id, "RespuestaReserva", sedeOrigen, sedeDestino, correlationId, fecha)
     {
