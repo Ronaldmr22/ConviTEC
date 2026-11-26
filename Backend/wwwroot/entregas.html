@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ConviTEC | Entregas</title>
+    <link rel="stylesheet" href="/estilos.css">
+    <script src="/sede.js" defer></script>
+</head>
+<body>
+    <header class="barra">
+        <div class="identidad-sede">
+            <strong>ConviTEC</strong>
+            <span id="sede-actual" class="etiqueta-sede" role="status">Consultando sede…</span>
+        </div>
+        <nav aria-label="Navegación principal">
+            <a href="/">Inventario local</a>
+            <a href="/catalogo-global.html">Catálogo global</a>
+            <a href="/crear-pedido.html">Crear pedido</a>
+            <a href="/historial-ventas.html">Historial de ventas</a>
+            <a href="/historial-pedidos.html">Historial de pedidos</a>
+            <a href="/entregas.html" aria-current="page">Entregas</a>
+            <a href="/estadisticas-ventas.html">Estadísticas</a>
+        </nav>
+    </header>
+
+    <main class="panel">
+        <h1>Entregas pendientes</h1>
+
+        <div class="tabla-contenedor">
+            <table>
+                <thead>
+                    <tr>
+                        <th scope="col">Pedido</th>
+                        <th scope="col">Destino</th>
+                        <th scope="col">Productos</th>
+                        <th scope="col">Cantidades</th>
+                    </tr>
+                </thead>
+                <tbody id="filas-entregas">
+                    <tr>
+                        <td colspan="4">Sin datos para mostrar.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <section aria-labelledby="titulo-recorrido">
+            <h2 id="titulo-recorrido">Recorrido de entrega</h2>
+
+            <dl>
+                <dt>Sede de salida</dt>
+                <dd id="sede-salida">—</dd>
+
+                <dt>Siguiente destino</dt>
+                <dd id="siguiente-destino">—</dd>
+
+                <dt>Tiempo total estimado</dt>
+                <dd id="tiempo-total">—</dd>
+            </dl>
+
+            <div class="tabla-contenedor">
+                <table>
+                    <thead>
+                        <tr>
+                            <th scope="col">Parada</th>
+                            <th scope="col">Origen del tramo</th>
+                            <th scope="col">Destino</th>
+                            <th scope="col">Tiempo (min)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="filas-recorrido">
+                        <tr>
+                            <td colspan="4">Sin recorrido para mostrar.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p><button id="calcular-recorrido" type="button" disabled>Calcular recorrido</button></p>
+        </section>
+    </main>
+</body>
+</html>

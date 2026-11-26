@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ConviTEC | Historial de pedidos</title>
+    <link rel="stylesheet" href="/estilos.css">
+    <script src="/sede.js" defer></script>
+</head>
+<body>
+    <header class="barra">
+        <div class="identidad-sede">
+            <strong>ConviTEC</strong>
+            <span id="sede-actual" class="etiqueta-sede" role="status">Consultando sede…</span>
+        </div>
+        <nav aria-label="Navegación principal">
+            <a href="/">Inventario local</a>
+            <a href="/catalogo-global.html">Catálogo global</a>
+            <a href="/crear-pedido.html">Crear pedido</a>
+            <a href="/historial-ventas.html">Historial de ventas</a>
+            <a href="/historial-pedidos.html" aria-current="page">Historial de pedidos</a>
+            <a href="/entregas.html">Entregas</a>
+            <a href="/estadisticas-ventas.html">Estadísticas</a>
+        </nav>
+    </header>
+
+    <main class="panel">
+        <h1>Historial de pedidos</h1>
+
+        <div class="tabla-contenedor">
+            <table>
+                <thead>
+                    <tr>
+                        <th scope="col">Pedido</th>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Destino</th>
+                        <th scope="col">Estado</th>
+                        <th scope="col">Monto total</th>
+                        <th scope="col">Detalle</th>
+                    </tr>
+                </thead>
+                <tbody id="filas-pedidos">
+                    <tr>
+                        <td colspan="6">Sin datos para mostrar.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <section id="detalle-pedido" aria-labelledby="titulo-detalle">
+            <h2 id="titulo-detalle">Detalle del pedido</h2>
+            <p id="motivo-rechazo" hidden></p>
+
+            <div class="tabla-contenedor">
+                <table>
+                    <thead>
+                        <tr>
+                            <th scope="col">Producto</th>
+                            <th scope="col">Cantidad</th>
+                            <th scope="col">Precio unitario</th>
+                        </tr>
+                    </thead>
+                    <tbody id="filas-detalle-pedido">
+                        <tr>
+                            <td colspan="3">Selecciona un pedido para ver sus productos.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
