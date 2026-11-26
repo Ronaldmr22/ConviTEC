@@ -59,6 +59,68 @@ const resumenPedido = document.querySelector("#resumen-pedido");
 const resumenDestino = document.querySelector("#resumen-destino");
 const resumenProductos = document.querySelector("#resumen-productos");
 const destino = document.querySelector("#destino");
+const botonRegistrar = document.querySelector("#registrar-pedido");
+const estadoPedido = document.querySelector("#estado-pedido");
+
+botonRegistrar.addEventListener("click", async () => {
+    if (resumenPedido.hidden || !formulario.reportValidity()) {
+        return;
+    }
+
+    const productos = [];
+
+    for (const fila of lineas.children) {
+        productos.push({
+            codigoProducto: fila.querySelector('[name="codigoProducto"]').value,
+            cantidad: Number(fila.querySelector('[name="cantidad"]').value)
+        });
+    }
+
+    // El selector entrega texto, por ejemplo "LIB" o "7".
+    const pedido = { destino: destino.value, productos };
+
+    formulario.inert = true;
+    estadoPedido.textContent = "Enviando pedido…";
+
+    try {
+        const respuesta = await fetch("/api/pedidos", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(pedido)
+        });
+
+        if (respuesta.status === 404 || respuesta.status === 405) {
+            estadoPedido.textContent =
+                "El registro de pedidos todavía no está disponible en esta sede.";
+            return;
+        }
+
+        const resultado = await respuesta.json();
+
+        if (resultado.aceptado === false) {
+            estadoPedido.textContent = resultado.mensaje || "El pedido fue rechazado.";
+            return;
+        }
+
+        if (!respuesta.ok || resultado.aceptado !== true || !resultado.idPedido) {
+            throw new Error(`Respuesta inesperada de POST /api/pedidos: HTTP ${respuesta.status}`);
+        }
+
+        // Limpia el formulario cuando el backend confirma el registro.
+        estadoPedido.textContent = `Pedido registrado: ${resultado.idPedido}`;
+        formulario.reset();
+        lineas.replaceChildren();
+        agregarProducto();
+        resumenPedido.hidden = true;
+    } catch (error) {
+        estadoPedido.textContent =
+            "No se pudo confirmar el registro. Verifica el estado del pedido antes de reintentar.";
+        console.error(error);
+    } finally {
+        formulario.inert = false;
+        (resumenPedido.hidden ? destino : botonRegistrar).focus();
+    }
+});
 
 formulario.addEventListener("submit", (evento) => {
     evento.preventDefault();
