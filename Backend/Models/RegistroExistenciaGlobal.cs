@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 namespace Backend.Models;
 
 public class RegistroExistenciaGlobal
@@ -7,7 +8,16 @@ public class RegistroExistenciaGlobal
     private int cantidad;
     private int cantidadReservada;
     private int version;
+    // Propiedades para JSON
+    public string CodigoProducto => codigoProducto;
+    public string CodigoSede => codigoSede;
+    public int Cantidad => cantidad;
+    public int CantidadReservada => cantidadReservada;
+    public int Version => version;
+    // Propiedad calculada
+    public int CantidadDisponible => cantidad - cantidadReservada;
 
+    [JsonConstructor]
     public RegistroExistenciaGlobal(
         string codigoProducto,
         string codigoSede,

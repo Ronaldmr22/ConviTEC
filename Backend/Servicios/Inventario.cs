@@ -1,6 +1,6 @@
 using Backend.Models;
 using Backend.Estructuras.Arboles;
-namespace Backend.Services;
+namespace Backend.Servicios;
 public class Inventario
 {
     private ArbolSplayInventario arbol;

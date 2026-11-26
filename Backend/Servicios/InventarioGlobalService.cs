@@ -1,7 +1,7 @@
 using Backend.Models;
 using Backend.Persistencia;
 
-namespace Backend.Services;
+namespace Backend.Servicios;
 
 public class InventarioGlobalService
 {
