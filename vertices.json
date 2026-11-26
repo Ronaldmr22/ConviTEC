@@ -1,18 +1,18 @@
 {
-  "vertices": [
-    { "nombre": "Liberia", "indice": 0 },
-    { "nombre": "Cañas", "indice": 1 },
-    { "nombre": "Alajuela", "indice": 2 },
-    { "nombre": "Orotina", "indice": 3 },
-    { "nombre": "Puntarenas", "indice": 4 },
-    { "nombre": "Heredia", "indice": 5 },
-    { "nombre": "San José", "indice": 6 },
-    { "nombre": "Cartago", "indice": 7 },
-    { "nombre": "Guapiles", "indice": 8 },
-    { "nombre": "Turrialba", "indice": 9 },
-    { "nombre": "Paraíso", "indice": 10 },
-    { "nombre": "Siquirres", "indice": 11 },
-    { "nombre": "Limón", "indice": 12 }
+    "vertices": [
+    { "nombre": "Liberia", "indice": 0, "tipo": "sede"},
+    { "nombre": "Cañas", "indice": 1, "tipo": "ubicación" },
+    { "nombre": "Alajuela", "indice": 2, "tipo": "sede" },
+    { "nombre": "Orotina", "indice": 3, "tipo": "ubicación" },
+    { "nombre": "Puntarenas", "indice": 4, "tipo": "ubicación" },
+    { "nombre": "Heredia", "indice": 5, "tipo": "ubicación" },
+    { "nombre": "San José", "indice": 6, "tipo": "sede" },
+    { "nombre": "Cartago", "indice": 7, "tipo": "ubicación" },
+    { "nombre": "Guapiles", "indice": 8, "tipo": "ubicación" },
+    { "nombre": "Turrialba", "indice": 9, "tipo": "ubicación" },
+    { "nombre": "Paraíso", "indice": 10, "tipo": "ubicación" },
+    { "nombre": "Siquirres", "indice": 11, "tipo": "ubicación" },
+    { "nombre": "Limón", "indice": 12, "tipo": "sede" }
   ],
   "aristas": [
     { "origenIndice": 0, "destinoIndice": 1, "peso": 45, "noDirigida": true },

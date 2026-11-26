@@ -11,7 +11,7 @@ namespace Grafo
             {
                 string rutaJson = args.Length > 0 ? args[0] : "vertices.json";
                 Grafo convitec = CargarGrafoDesdeJson(rutaJson);
-                Django(convitec, convitec.Vertices[7]);
+                Django(convitec, convitec.Vertices[3]);
               
             }
         }
@@ -30,25 +30,24 @@ namespace Grafo
             };
 
             GrafoJsonDto? datos = JsonSerializer.Deserialize<GrafoJsonDto>(json, opciones);
-            if (datos == null)
-                throw new InvalidDataException("El contenido del JSON no es válido.");
+           
 
             Grafo grafo = new Grafo();
 
-            // 1. Crear vértices y mapearlos por Indice
-            var verticesPorIndice = new Dictionary<int, Vertice>();
+            
+            var verticesPorIndice = new Dictionary<int, Vertice>();//crear vertices
             foreach (var vDto in datos.Vertices)
             {
                 if (verticesPorIndice.ContainsKey(vDto.Indice))
                     throw new InvalidDataException($"Índice de vértice duplicado: {vDto.Indice}");
 
-                var vertice = new Vertice(vDto.Nombre, vDto.Indice);
+                var vertice = new Vertice(vDto.Nombre, vDto.Indice, vDto.Tipo);
                 grafo.Vertices.Add(vertice);
                 verticesPorIndice[vDto.Indice] = vertice;
             }
 
-            // 2. Crear aristas conectando los vértices correspondientes
-            foreach (var aDto in datos.Aristas)
+            
+            foreach (var aDto in datos.Aristas)//crear aristas
             {
                 if (!verticesPorIndice.TryGetValue(aDto.OrigenIndice, out Vertice? origen) ||
                     !verticesPorIndice.TryGetValue(aDto.DestinoIndice, out Vertice? destino))
@@ -57,14 +56,10 @@ namespace Grafo
                         $"Arista con índice inexistente ({aDto.OrigenIndice} -> {aDto.DestinoIndice}).");
                 }
 
-                if (aDto.NoDirigida)
-                {
+                
                     AgregarAristaNoDirigida(origen, destino, aDto.Peso);
-                }
-                else
-                {
-                    origen.Aristas.Add(new Arista(origen, destino, aDto.Peso));
-                }
+                
+                
             }
 
             return grafo;
@@ -80,22 +75,22 @@ namespace Grafo
             bool[] procesados = new bool[cantidadVertices];
             Vertice[] anteriores = new Vertice[cantidadVertices];
 
-            for (int i = 0; i < cantidadVertices; i++) //seteamos todo al maximo
+            for (int i = 0; i < cantidadVertices; i++)
             {
                 distancias[i] = int.MaxValue;
                 procesados[i] = false;
                 anteriores[i] = null!;
             }
 
-            distancias[origen.Indice] = 0;//primera distancia es 0
+            distancias[origen.Indice] = 0;
 
             for (int count = 0; count < cantidadVertices; count++)
             {
                 Vertice? actual = null;
                 int menorDistancia = int.MaxValue;
 
-                
-                for (int i = 0; i < cantidadVertices; i++) //buscamos verticce no procesado, False
+                // Buscar el vértice no procesado con menor distancia acumulada
+                for (int i = 0; i < cantidadVertices; i++)
                 {
                     Vertice candidato = grafo.Vertices[i];
                     if (!procesados[candidato.Indice] && distancias[candidato.Indice] <= menorDistancia)
@@ -106,13 +101,13 @@ namespace Grafo
                 }
 
                 if (actual == null || distancias[actual.Indice] == int.MaxValue)
-                    break; //si ese no sirve buscamos otro
+                    break;
 
                 procesados[actual.Indice] = true;
 
                
-                
-                for (int j = 0; j < actual.Aristas.Count; j++) //actualizar las distancias del actual a vecinos
+                // Relajar las aristas salientes del vértice actual
+                for (int j = 0; j < actual.Aristas.Count; j++)
                 {
                     Arista arista = actual.Aristas[j];
                     Vertice vecino = arista.Vertice2;
@@ -128,7 +123,7 @@ namespace Grafo
                     }
                 }
             }
-            Console.WriteLine($"\n--- Distancias mínimas desde {origen.Nombre} (Dijkstra) ---"); // esto es solo para probar
+            Console.WriteLine($"\n--- Distancias mínimas desde {origen.Nombre} (Dijkstra) ---");
             for (int i = 0; i < cantidadVertices; i++)
             {
                 Vertice v = grafo.Vertices[i];

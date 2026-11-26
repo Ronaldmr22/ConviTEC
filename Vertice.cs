@@ -17,11 +17,13 @@ namespace Grafo
         public String Nombre { get; set; }
         public List<Arista> Aristas { get; set; }
         public int Indice { get; set; }
+        public String Tipo { get; set; }
 
-        public Vertice(String nombre, int indice)
+        public Vertice(String nombre, int indice, String tipo)
         {
             this.Nombre = nombre;
             this.Indice = indice;
+            this.Tipo = tipo;
 
             this.Aristas = new List<Arista>();
         }
@@ -48,6 +50,7 @@ namespace Grafo
     {
         public string Nombre { get; set; } = string.Empty;
         public int Indice { get; set; }
+        public string Tipo { get; set; } = string.Empty;
     }
 
     public class AristaJsonDto
