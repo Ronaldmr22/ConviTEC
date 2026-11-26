@@ -1,5 +1,7 @@
 using Backend.Models;
 using Backend.Pedidos;
+using Backend.Servicios;
+using Backend.Persistencia;
 
 public class ServicioPedidos
 {
@@ -9,8 +11,9 @@ public class ServicioPedidos
     private Cola Pendientes;
     private ListaEnlazada Historial;
     private InventarioGlobal InventarioGlobal;
+    private InventarioService InventarioLocal;
 
-    public ServicioPedidos(IPlanificadorRutas planificador, CoordinadorReservas coordinador, IRepositorioPedidos repositorio, InventarioGlobal inventarioGlobal)
+    public ServicioPedidos(IPlanificadorRutas planificador, CoordinadorReservas coordinador, IRepositorioPedidos repositorio, InventarioGlobal inventarioGlobal, InventarioService inventarioLocal)
     {
         this.Planificador = planificador;
         this.Coordinador = coordinador;
@@ -18,6 +21,8 @@ public class ServicioPedidos
         this.Pendientes = new Cola();
         this.Historial = new ListaEnlazada();
         this.InventarioGlobal = inventarioGlobal;
+        this.InventarioLocal = inventarioLocal;
+
         CargarDesdeArchivo();
     }
 
@@ -93,24 +98,48 @@ public class ServicioPedidos
     private string? AsignarProveedores(Pedido pedido)
     {
         ListaEnlazada lista = pedido.GetLineas();
-        ListaEnlazada existencias = InventarioGlobal.GetExistencias();
+
+        RegistroExistenciaGlobal[] existencias = InventarioGlobal.ObtenerRegistros();
+
         for (Nodo i = lista.GetHead(); i != null; i = i.GetNext())
         {
-            if (InventarioLocal.Disponible(((LineaPedido)i.GetData()).GetProducto().GetCodigo()) >= ((LineaPedido)i.GetData()).GetCantidad())
+            LineaPedido linea = (LineaPedido)i.GetData();
+
+            string codigoProducto = linea.GetProducto().GetCodigo();
+            int cantidad = linea.GetCantidad();
+
+            // Primero buscar en el inventario local
+            RegistroInventarioJson? productoLocal = InventarioLocal.BuscarProducto(codigoProducto);
+
+            if (productoLocal != null && productoLocal.Cantidad - productoLocal.CantidadReservada >= cantidad)
             {
-                ((LineaPedido)i.GetData()).SetSedeProveedora(pedido.GetSedeOrigen());
+                linea.SetSedeProveedora(pedido.GetSedeOrigen());
                 continue;
             }
 
-            object proveedora = existencias.EncontrarDato(data => 
-            ((ExistenciaRemota)data).GetCodigoProducto() == ((LineaPedido)i.GetData()).GetProducto().GetCodigo() && 
-            ((ExistenciaRemota)data).GetDisponible() >= ((LineaPedido)i.GetData()).GetCantidad());
+            // Si no alcanza, buscar en el inventario global
+            RegistroExistenciaGlobal? proveedora = null;
+
+            for (int j = 0; j < existencias.Length; j++)
+            {
+                if (existencias[j].GetCodigoProducto() == codigoProducto &&
+                    existencias[j].GetCodigoSede() != pedido.GetSedeOrigen() &&
+                    existencias[j].GetCantidadDisponible() >= cantidad)
+                {
+                    proveedora = existencias[j];
+                    break;
+                }
+            }
+
             if (proveedora == null)
             {
-                return ((LineaPedido)i.GetData()).GetProducto().GetNombre();
+                return linea.GetProducto().GetNombre();
             }
-            ((LineaPedido)i.GetData()).SetSedeProveedora(((ExistenciaRemota)proveedora).GetCodigoSede());
+
+            linea.SetSedeProveedora(proveedora.GetCodigoSede());
         }
+
         return null;
     }
+
 }
