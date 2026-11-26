@@ -16,6 +16,7 @@ function agregarProducto() {
     fila.querySelector(".quitar-producto").addEventListener("click", () => {
         if (lineas.childElementCount > 1) {
             fila.remove();
+            resumenPedido.hidden = true;
             botonAgregar.focus();
         }
     });
@@ -54,10 +55,42 @@ async function cargarProductos() {
     }
 }
 
-formulario.addEventListener("submit", (evento) => evento.preventDefault());
+const resumenPedido = document.querySelector("#resumen-pedido");
+const resumenDestino = document.querySelector("#resumen-destino");
+const resumenProductos = document.querySelector("#resumen-productos");
+const destino = document.querySelector("#destino");
+
+formulario.addEventListener("submit", (evento) => {
+    evento.preventDefault();
+
+    if (lineas.childElementCount === 0) {
+        return;
+    }
+
+    resumenDestino.textContent = `Destino: ${destino.selectedOptions[0].textContent}`;
+    resumenProductos.replaceChildren();
+
+    // Lee los productos y las cantidades del formulario.
+    for (const fila of lineas.children) {
+        const producto = fila.querySelector('[name="codigoProducto"]').value;
+        const cantidad = fila.querySelector('[name="cantidad"]').value;
+
+        const detalle = document.createElement("li");
+        detalle.textContent = `${producto} · ${cantidad} unidad(es)`;
+        resumenProductos.append(detalle);
+    }
+
+    resumenPedido.hidden = false;
+});
+
+// Oculta el resumen anterior si se editan los datos.
+formulario.addEventListener("input", () => {
+    resumenPedido.hidden = true;
+});
 
 botonAgregar.addEventListener("click", () => {
     const fila = agregarProducto();
+    resumenPedido.hidden = true;
     fila.querySelector('select[name="codigoProducto"]').focus();
 });
 
