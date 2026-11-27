@@ -20,6 +20,18 @@ public class Pedido
         this.MotivoRechazo = "";
     }
 
+    // Constructor para reconstruir un pedido guardado en archivo
+    public Pedido(string id, DateTime fechaCreacion, EstadoPedido estado, string sedeOrigen, string destino, string motivoRechazo)
+    {
+        this.Id = id;
+        this.FechaCreación = fechaCreacion;
+        this.Estado = estado;
+        this.SedeOrigen = sedeOrigen;
+        this.Destino = destino;
+        this.Lineas = new ListaEnlazada();
+        this.MotivoRechazo = motivoRechazo;
+    }
+
     public string GetId() {return Id;}
     public DateTime GetFechaCreación() {return FechaCreación;}
     public EstadoPedido GetEstado() {return Estado;}
@@ -50,8 +62,8 @@ public class Pedido
         ListaEnlazada sedes = new ListaEnlazada();
         Lineas.Recorrer(dato =>
         {
-            string sede = ((LineaPedido)dato).GetSedeProveedora();
-            if (sedes.EncontrarDato(s => (string)s == sede) == null)
+            string? sede = ((LineaPedido)dato).GetSedeProveedora();
+            if (sede != null && sedes.EncontrarDato(s => (string)s == sede) == null)
             {
             sedes.AgregarDato(sede);
             }
