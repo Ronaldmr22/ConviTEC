@@ -50,8 +50,9 @@ public class ServicioPedidos
 
         if (!reservado)
         {
-            Coordinador.LiberarPedido(pedido);
-            return Rechazar(pedido, EstadoPedido.Cancelado, "Una sede rechazó la reserva o no respondió a tiempo");
+            await Coordinador.LiberarPedido(pedido);
+            string motivo = pedido.GetMotivoRechazo() != "" ? pedido.GetMotivoRechazo() : "Una sede rechazó la reserva o no respondió a tiempo";
+            return Rechazar(pedido, EstadoPedido.Cancelado, motivo);
         }
 
         await Coordinador.ConfirmarPedido(pedido);
